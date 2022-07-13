@@ -1,4 +1,5 @@
 import enum
+from datetime import datetime, timedelta
 from functools import wraps
 import logging
 
@@ -42,8 +43,10 @@ class Decoder:
         self._state = State.standby
         self._server = Server()
         self._blocked = False
+        self._last_payment_check = None
 
     def check_payment(self):
+        self._last_payment_check = datetime.now()
         payment_ok = self._server.check_payment()
         if not payment_ok:
             self._blocked = True
