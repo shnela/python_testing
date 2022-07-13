@@ -1,7 +1,11 @@
 import enum
 from functools import wraps
+import logging
 
 from decoder_tool.server import Server
+
+
+logger = logging.getLogger(__name__)
 
 
 class DecoderException(Exception):
@@ -76,6 +80,7 @@ class Decoder:
     @do_not_operate_on_standby
     def channel_up(self):
         self._current_channel += 1
+        logger.info(f"channel up to {self._current_channel}")
 
     @do_not_operate_on_standby
     def channel_down(self):

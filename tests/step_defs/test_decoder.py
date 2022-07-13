@@ -1,3 +1,5 @@
+import logging
+
 import pytest
 from pytest_bdd import scenarios, given, when, then, parsers
 
@@ -29,13 +31,14 @@ def set_channel(decoder, channel):
 
 
 @when(parsers.parse('the user turns channel {direction}'))
-def change_channel(decoder, direction):
-    if direction == 'up':
-        decoder.channel_up()
-    elif direction == 'down':
-        decoder.channel_down()
-    else:
-        raise ValueError(direction)
+def change_channel(decoder, direction, caplog):
+    with caplog.at_level(logging.INFO):
+        if direction == 'up':
+            decoder.channel_up()
+        elif direction == 'down':
+            decoder.channel_down()
+        else:
+            raise ValueError(direction)
 
 
 @then(parsers.parse('decoder should be in state {state}'))
@@ -58,3 +61,8 @@ def search_results(decoder, action):
             decoder.channel_down()
         else:
             raise ValueError(action)
+
+
+@then(parsers.parse('should be entry "{log_line}" in logs'))
+def search_results(caplog, log_line):
+    assert log_line in caplog.messages

@@ -40,3 +40,9 @@ Feature: Box channel changing
     Given decoder is turned on
     When the user selects channel 1
     Then Can't perform action channel_down
+
+  Scenario: Check logging
+    Given decoder is turned on
+    When the user selects channel 1
+    And the user turns channel up
+    Then should be entry "channel up to 2" in logs
