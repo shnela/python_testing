@@ -1,15 +1,15 @@
-@decoder
+@decoder @decoder-basic
 Feature: Box channel changing
   As a user,
   I want to set channel,
   And make sure it's selected.
 
-  Scenario: Basic channel selection
+  Scenario: Basic turn on
     Given decoder is turned on
     Then decoder should be in state ON
 
-  Scenario: Basic channel selection
-    Given decoder is turned OFF
+  Scenario: Basic turn off
+    Given decoder is turned off
     Then decoder should be in state STANDBY
 
   Scenario: Basic channel selection
