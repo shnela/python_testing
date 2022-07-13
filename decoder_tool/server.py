@@ -1,9 +1,8 @@
-from random import random
-from time import sleep
+import requests
 
 
 class Server:
     def check_payment(self):
-        sleep(1)
-        val = random()
-        return val > 0.1
+        result = requests.get("url which checks client credentials")
+        subscription_state = result.json()
+        return subscription_state["status"] == "OK"
